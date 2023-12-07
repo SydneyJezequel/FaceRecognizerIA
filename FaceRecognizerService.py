@@ -18,6 +18,9 @@ import pickle
 # Fichier contenant les images encodées :
 DEFAULT_ENCODINGS_PATH = Path("output/encodings.pkl")
 
+# Fichier contenant les images encodées :
+DEFAULT_IDENTIFY_PATH = Path("identifyFace/identifyFace.jpg")
+
 # Couleur de la Bounding Box (rectangle qui contient les visages) :
 BOUNDING_BOX_COLOR = "blue"
 
@@ -90,10 +93,10 @@ def encode_known_faces(model: str) -> None:
 
 """ Implémenter HOG ou CNN dans la String Model : """
 
-def recognize_faces(image_location: str, model:str, chemin_fichier_genere: str) -> None:
+def recognize_faces(image_location: str, model:str) -> None:
 
     # Récupération du path des images encodées :
-    encodings_location: Path[chemin_fichier_genere]
+    encodings_location: Path = DEFAULT_ENCODINGS_PATH
 
     # Chargement des images encodées dans le fichier pickle :
     with encodings_location.open(mode="rb") as f:

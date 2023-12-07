@@ -219,20 +219,18 @@ def encode_known_faces(payload: EncodeKnownFaceIn):
 
 # Objet en entrée :
 class RecognitionIn(BaseModel):
-    image_location: str
     model: str
-    encodings_location: str
+    image_location: str
 
 # Api de reconnaissance faciale :
 @app.post("/recognize-face", status_code=200)
 def recognize_face(payload: RecognitionIn):
     print(" ****** TEST RECONNAISSANCE FACIALE ****** ")
-    print(payload.image_location)
     print(payload.model)
-    print(payload.encodings_location)
+    print(payload.image_location)
     print(" ****** TEST RECONNAISSANCE FACIALE ****** ")
     known_faces_encoding(payload.model)
-    face_recognition(payload.image_location, payload.model, payload.encodings_location)
+    face_recognition(payload.image_location, payload.model)
 
 # ****************************************************************************************************************************** #
 # ********************************************************* Méthode de Reconnaissance Faciale ******************************************************** #
