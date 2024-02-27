@@ -1,3 +1,4 @@
+"""
 from pathlib import Path
 from collections import Counter
 from PIL import Image, ImageDraw
@@ -269,7 +270,7 @@ if __name__ == "__main__":
 
 
 
-
+"""
 
 
 

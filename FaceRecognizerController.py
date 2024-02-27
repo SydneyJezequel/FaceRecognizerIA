@@ -9,9 +9,8 @@ from FaceRecognizerService import FaceRecognizerService
 
 """ ********************************** Commande pour démarrer l'application ********************************** """
 
-# uvicorn main:app --reload --workers 1 --host 0.0.0.0 --port 8008
-# uvicorn FaceRecognizerController:app --reload --workers 1 --host 0.0.0.0 --port 8008
-
+# uvicorn main:app --reload --workers 1 --host 0.0.0.0 --port 8009
+# uvicorn FaceRecognizerController:app --reload --workers 1 --host 0.0.0.0 --port 8009
 
 
 
