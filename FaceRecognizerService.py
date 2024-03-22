@@ -9,9 +9,8 @@ import pickle
 
 
 
-""" Service de Reconnaissance Faciale  """
 class FaceRecognizerService:
-
+    """ Service de Reconnaissance Faciale  """
 
 
 
@@ -44,11 +43,12 @@ class FaceRecognizerService:
 
 
 
-
     """ ******************************** Constructeur ******************************** """
+
     _instance = None
 
     def __new__(cls):
+        """ Constructeur """
         if cls._instance is None:
             cls._instance = super(FaceRecognizerService, cls).__new__(cls)
         return cls._instance
@@ -57,35 +57,26 @@ class FaceRecognizerService:
 
 
 
-
     """ ******************************** Méthodes ******************************** """
 
-
-
-    """ Méthode qui charges les photos, identifie et enregistre les visages dans un dictionnaire """
     def encode_known_faces(self, model: str) -> None:
+        """ Méthode qui charges les photos, identifie et enregistre les visages dans un dictionnaire """
         names = []
         encodings = []
         encodings_location: Path = self.DEFAULT_ENCODINGS_PATH
-
         # Boucle qui parcourt chaque fichier d'entrainement :
         for filepath in Path("training").glob("*/*"):
-
             # Extraction du nom et du contenu de l'image :
             name = filepath.parent.name
             image = face_recognition.load_image_file(filepath)
-
             # Détection de l'emplacement des visages sur chaque image. Renvoie les 4 coordonnées d'une boite qui recouvre le visage :
             face_locations = face_recognition.face_locations(image, model=model)
-
             # Encodage de chaque visage détecté :
             face_encodings = face_recognition.face_encodings(image, face_locations)
-
             # AJout des noms et visages encodés aux listes "names" et "encodings" :
             for encoding in face_encodings:
                 names.append(name)
                 encodings.append(encoding)
-
         # Enregistrement de l'encodage des images et de leurs noms dans un dictionnaire et sauvegarde dans un fichier "pickle" :
         name_encodings = {"names": names, "encodings": encodings}
         with encodings_location.open(mode="wb") as f:
@@ -93,31 +84,23 @@ class FaceRecognizerService:
 
 
 
-    """ Méthode pour reconnaitre les visages sur une image donnée """
     def recognize_faces(self, image_location: str, model:str) -> None:
-
+        """ Méthode pour reconnaitre les visages sur une image donnée """
         # Récupération du path des images encodées :
         encodings_location: Path = self.DEFAULT_ENCODINGS_PATH
-
         # Chargement des images encodées dans le fichier pickle :
         with encodings_location.open(mode="rb") as f:
             loaded_encodings = pickle.load(f)
-
         # Chargement de l'image à partir du fichier spécifié :
         input_image = face_recognition.load_image_file(image_location)
-
         # Détection des visages dans l'image et leur encodage :
         input_face_locations = face_recognition.face_locations(input_image, model=model)
-
         # Encodage des visages détectés dans l'image d'entrée :
         input_face_encodings = face_recognition.face_encodings(input_image, input_face_locations)
-
         # Création d'un objet Image :
         pillow_image = Image.fromarray(input_image)
-
         # Création d'un objet ImageDraw associé à l'objet Image :
         draw = ImageDraw.Draw(pillow_image)
-
         # Comparaison des visages encodés enregistrés avec des visages encodés inconnus :
         for bounding_box, unknown_encoding in zip(input_face_locations, input_face_encodings):
                 # Appel de la fonction _recognize_face pour reconnaître le visage :
@@ -134,10 +117,9 @@ class FaceRecognizerService:
 
 
 
-    """ Méthode de reconnaissance d'un visage """
-    """ Elle compare l'encodage du visage inconnu avec la liste des visages encodés lors de l'entrainement. """
     def _recognize_face(self, unknown_encoding, loaded_encodings):
-
+        """ Méthode de reconnaissance d'un visage """
+        """ Compare l'encodage du visage inconnu avec la liste des visages encodés lors de l'entrainement. """
         # Compare le visage inconnu passé en paramtère avec chaque visage précédement enregistré :
         boolean_matches = face_recognition.compare_faces(
             loaded_encodings["encodings"], unknown_encoding
@@ -154,13 +136,11 @@ class FaceRecognizerService:
 
 
 
-    """" Méthode qui dessine la boite englobante autour des visages """
     def _display_face(self, draw, bounding_box, name):
-
+        """" Méthode qui dessine la boite englobante autour des visages """
         # Dessin de la boîte englobante autour du visage :
         top, right, bottom, left = bounding_box
         draw.rectangle(((left, top), (right, bottom)), outline=self.BOUNDING_BOX_COLOR)
-
         # Identifier les coordoonées de la boite englobante :
         text_left, text_top, text_right, text_bottom = draw.textbbox(
             (left, bottom), name
@@ -180,8 +160,8 @@ class FaceRecognizerService:
 
 
 
-    """ Méthode de validation du modèle """
     def validate(self, model: str = "hog"):
+        """ Méthode de validation du modèle """
         # Boucle sur les fichiers dans le répertoire validation :
         for filepath in Path("validation").rglob("*"):
             if filepath.is_file():
@@ -193,15 +173,11 @@ class FaceRecognizerService:
 
 
 
-
-
 # Detector
 '''
 URL :
 https://realpython.com/face-recognition-with-python/#project-overview
 '''
-
-
 
 
 # BOITE ENGLOBANTES / BOUNDING BOXES :
@@ -214,8 +190,6 @@ d'un visage détecté dans une image.
 """
 
 
-
-
 # VOTE :
 """
 -Qu’est-ce qu’un vote, et qui vote ?
@@ -223,9 +197,4 @@ Lorsque vous appelez compare_faces(), votre visage inconnu est comparé
 à tous les visages connus pour lesquels vous disposez d'encodages.
 Chaque match fait office de vote pour la personne au visage connu. 
 """
-
-
-
-
-
 

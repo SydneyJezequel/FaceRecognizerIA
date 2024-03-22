@@ -4,28 +4,25 @@ from pydantic import BaseModel
 
 
 
-
 """ ********************************** Objets en paramètres des controllers ********************************** """
 
 
-""" Paramètre du controller encode_known_faces()  """
 class EncodeKnownFaceIn(BaseModel):
+    """ Paramètre du controller encode_known_faces() """
     model: str
 
 
 
 
-""" Paramètre du controller recognize_face() """
 class RecognitionIn(BaseModel):
+    """ Paramètre du controller recognize_face() """
     model: str
     image_location: str
 
 
 
 
-""" Paramètre du controller validate() """
 class ValidateIn(BaseModel):
+    """ Paramètre du controller validate() """
     model: str
-
-
 
