@@ -1,6 +1,8 @@
 from fastapi import FastAPI
-from FaceRecognizerBO import EncodeKnownFaceIn, RecognitionIn, ValidateIn
-from FaceRecognizerService import FaceRecognizerService
+from BO.EncodeKnownFaceIn import EncodeKnownFaceIn
+from BO.RecognitionIn import RecognitionIn
+from BO.ValidateIn import ValidateIn
+from service.FaceRecognizerService import FaceRecognizerService
 
 
 
