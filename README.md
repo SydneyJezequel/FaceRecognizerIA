@@ -18,3 +18,23 @@ Le Front et le Backend pour manipuler ce modèle sont mis à disposition dans le
 Commande pour lancer le projet :
 uvicorn FaceRecognizerController:app --reload --workers 1 --host 0.0.0.0 --port 8009
 
+
+
+
+# NOTIONS :
+
+URL : https://realpython.com/face-recognition-with-python/#project-overview
+
+# BOITE ENGLOBANTES / BOUNDING BOXES :
+Les boîtes englobantes, souvent appelées "bounding boxes" en anglais,
+sont des rectangles qui encadrent un objet ou une région d'intérêt dans une image.
+Dans le contexte de la reconnaissance d'objets ou de visages,
+les boîtes englobantes sont utilisées pour délimiter l'emplacement d'un objet ou
+d'un visage détecté dans une image.
+
+# VOTE :
+-Qu’est-ce qu’un vote, et qui vote ?
+Lorsque vous appelez compare_faces(), votre visage inconnu est comparé
+à tous les visages connus pour lesquels vous disposez d'encodages.
+Chaque match fait office de vote pour la personne au visage connu. 
+

@@ -11,8 +11,16 @@ from service.FaceRecognizerService import FaceRecognizerService
 
 """ ********************************** Commande pour démarrer l'application ********************************** """
 
-# uvicorn main:app --reload --workers 1 --host 0.0.0.0 --port 8009
 # uvicorn FaceRecognizerController:app --reload --workers 1 --host 0.0.0.0 --port 8009
+
+
+
+
+
+
+""" ********************************** Chargement de l'Api ********************************** """
+
+app = FastAPI()
 
 
 
@@ -21,18 +29,10 @@ from service.FaceRecognizerService import FaceRecognizerService
 
 """ ********************************** Méthodes ********************************** """
 
-
-""" Chargement de l'Api """
-app = FastAPI()
-
-
-
-
 @app.get("/ping")
 async def pong():
     """ Api de test """
     return {"ping": "pong!"}
-
 
 
 
@@ -45,7 +45,6 @@ def encode_known_faces(payload: EncodeKnownFaceIn):
     face_recognizer_service_instance = FaceRecognizerService()
     # Encodage des photos et entrainement du modèle :
     face_recognizer_service_instance.encode_known_faces(payload.model)
-
 
 
 
@@ -64,8 +63,6 @@ def recognize_face(payload: RecognitionIn):
 
 
 
-
-""" Api de validation Modèle """
 @app.post("/recognize-face-test", status_code=200)
 def validate(payload: ValidateIn):
     """ Api de validation Modèle """
