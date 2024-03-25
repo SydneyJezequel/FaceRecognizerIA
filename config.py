@@ -1,6 +1,6 @@
 
 
-# Chemins et variables globales du fichier FaceRecognizerService
+# Chemins et variables globales du fichier FaceRecognizerService :
 default_encoding_path = './resources/output/encodings.pkl'
 default_identify_path = './resources/identifyFace/identifyFace.jpg'
 bounding_box_color = 'blue'
